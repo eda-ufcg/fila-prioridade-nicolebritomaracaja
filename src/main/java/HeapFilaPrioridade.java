@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class HeapFilaPrioridade implements FilaPrioridade {
 
 	private Heap heap;
@@ -7,11 +9,19 @@ public class HeapFilaPrioridade implements FilaPrioridade {
 	}
 
 	// adicionar o pair no heap
-	public void add(String elemento, int prioridade) {}
+	public void add(String elemento, int prioridade) {
+		Pair newPair = new Pair(elemento, prioridade);
+		this.heap.add(newPair);
+	}
 
 	// recuperar a raiz
 	public String removeNext() {
-		return "";
+		if (this.heap.isEmpty()){
+			throw new NoSuchElementException("Heap Vazio!");
+		}
+
+		Pair pairMaiorPrioridade = this.heap.remove();
+		return pairMaiorPrioridade.getElemento();
 	}
 
 }

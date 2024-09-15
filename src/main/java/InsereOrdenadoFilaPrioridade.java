@@ -31,18 +31,21 @@ public class InsereOrdenadoFilaPrioridade implements FilaPrioridade {
 
 		if(this.isEmpty()){
 			this.head = 0;
+			this.last = 0;
+			fila[head] = newPair;
+			return;
 		}
 
-		last = (last + 1) % fila.length;
+		this.last = (last + 1) % fila.length;
         fila[last] = newPair;
 		
 		int i = last;
-		int j = last - 1;
+		int j = (i - 1 + fila.length) % fila.length;
 
-		while (i >= 0 && j >= 0 && fila[i].getPrioridade() > fila[j].getPrioridade()){
+		while (i != head && fila[i].getPrioridade() > fila[j].getPrioridade()){
 			swap(i, j, fila);
-			i--;
-			j--;
+			i = j;
+			j = (i - 1 + fila.length) % fila.length;
 		}
 	}
 
